@@ -47,6 +47,18 @@
 	</div>
 </div>
 
-<Separator class="bg-primary" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
+<Separator class="my-4 bg-muted" />
 
 <!-- <EditButton currentUsername={data.username} /> -->
