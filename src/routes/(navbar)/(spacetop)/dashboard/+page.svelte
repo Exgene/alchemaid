@@ -1,8 +1,11 @@
 <script>
 	import UserDashboard from './userDashboard.svelte';
+	import {userData} from '$lib/firebase/firebase'
+	import DoctorDashboard from './doctorDashboard.svelte';
 </script>
 
-<!-- if isDoctor -->
+{#if $userData?.isDoctor}
+<DoctorDashboard />
+{:else}
 <UserDashboard />
-<!-- else -->
-<!-- <PatientDashboard /> -->
+{/if}

@@ -3,6 +3,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { spring } from 'svelte/motion';
 	import BouncingDots from './BouncingDots.svelte';
+	import SvelteMarkdown from 'svelte-markdown';
 
 	export let who = 'you';
 	export let text = '';
@@ -42,9 +43,7 @@
 			</div>
 		{/if}
 		<div class="text-box" class:show={_ready} bind:clientHeight={el}>
-			<p>
-				{text}
-			</p>
+			<SvelteMarkdown source={text} />
 		</div>
 	</div>
 </div>

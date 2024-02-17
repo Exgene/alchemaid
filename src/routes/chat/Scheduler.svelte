@@ -1,125 +1,40 @@
-<script>
-	// @ts-nocheck
-
-	import { onMount } from 'svelte';
+<script lang="ts">
 	import ChatBox from './ChatBox.svelte';
 
-	/**
-	 * @type {any[]}
-	 */
-	let transformed_data = [];
-	export let data = [
-		{
-			text: 'Hi!',
-			who: 'them'
-		},
-		{
-			text: "Let's discover a little more about you!",
-			who: 'them'
-		},
-		{
-			text: 'When exploring opportunities and starting new projects, you...',
-			who: 'them'
-		},
-		{
-			text: 'Hi!',
-			who: 'you'
-		},
-		{
-			text: "Let's discover a little more about you!",
-			who: 'them'
-		},
-		{
-			text: 'When exploring opportunities and starting new projects, you...',
-			who: 'them'
-		},
-		{
-			text: 'Hi!',
-			who: 'them'
-		},
-		{
-			text: "Let's discover a little more about you!",
-			who: 'them'
-		},
-		{
-			text: 'When exploring opportunities and starting new projects, you...',
-			who: 'them'
-		},
-		{
-			text: 'Hi!',
-			who: 'you'
-		},
-		{
-			text: "Let's discover a little more about you!",
-			who: 'them'
-		},
-		{
-			text: 'When exploring opportunities and starting new projects, you...',
-			who: 'them'
-		}
-	];
+	type FinalData = {
+		text: string;
+		who: string;
+		ready: boolean;
+		isolateDelay: number;
+	};
 
-	/**
-	 * @type {any[]}
-	 */
-	let current = [];
-	let timer = 0;
-	let current_index = 0;
+	export let data: Array<{ text: string; who: string }> = [];
 
-	/**
-	 * @param {string} text
-	 */
-	function readingTime(text) {
-		const wps = 225 / 60;
+	let transformedData: Array<FinalData> = [];
+
+	function readingTime(text: string) {
+		const wps = 480 / 60;
 		const words = text.trim().split(/\s+/).length;
 		const time = Math.ceil((words / wps) * 1000);
 		return time;
 	}
 
-	let accumulated_time = 0;
-	for (let i = 0; i < data.length; i++) {
-		const time = readingTime(data[i].text);
-		const _data = {
-			...data[i],
-			ready: false,
-			isolateDelay: time,
-			delay: accumulated_time + (time < 1500 ? 1500 : time * 2),
-			final: i === data.length - 1
+	// function to transform data
+	function transform(dataElement: { text: string; who: string }) {
+		const time = readingTime(dataElement?.text ?? '');
+		return {
+			...dataElement,
+			ready: true,
+			isolateDelay: 0
 		};
-		accumulated_time = _data.delay;
-		transformed_data.push(_data);
 	}
 
-	function run() {
-		const elapsed = performance.now() - timer;
-		if (elapsed > transformed_data[current_index].delay) {
-			transformed_data[current_index].ready = true;
-			current = current;
-			if (!transformed_data[current_index + 1]) return;
-			transformed_data[current_index + 1] && current_index++;
-
-			current.push(transformed_data[current_index]);
-			current = current;
-		}
-
-		requestAnimationFrame(run);
-	}
-
-	function schedule() {
-		timer = performance.now();
-		requestAnimationFrame(run);
-	}
-
-	onMount(() => {
-		current.push(transformed_data[current_index]);
-		current = current;
-		schedule();
-	});
+	$: transformedData = [...transformedData, transform(data[data.length - 1])];
 </script>
 
 <div>
-	{#each current as { text, who, ready, final, isolateDelay }}
-		<ChatBox {who} {text} {ready} {final} {isolateDelay} />
+	{#each transformedData as { text, who, ready, isolateDelay }}
+		<ChatBox {who} {text} {ready} {isolateDelay} />
 	{/each}
 </div>
 

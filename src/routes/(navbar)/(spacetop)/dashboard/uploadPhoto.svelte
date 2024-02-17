@@ -7,11 +7,24 @@
 	import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 	import { Input } from '$lib/components/ui/input';
 
+	type MedicalCategories = 'chest-xray' | 'brain-mri' | 'eye-ct' | 'skin-disease' | 'report';
+
+	let APIURLS = {
+		'chest-xray': 'https://pneumonia-fmaprfvioa-de.a.run.app',
+		'brain-mri': 'https://braintumor-fmaprfvioa-de.a.run.app',
+		'eye-ct': 'https://diabeticretinopathy-fmaprfvioa-de.a.run.app',
+		'skin-disease': 'https://skindisease-fmaprfvioa-de.a.run.app',
+		report: 'https://report-fmaprfvioa-de.a.run.app'
+	};
+
 	export let aiDiagnosis: string = '';
+	export let category: MedicalCategories = 'report';
 	export let title: string = 'report';
 	export let downloadURL: string;
+
 	let previewURL: string;
 	let uploading = false;
+	let diagnosing = false;
 
 	async function upload(e: any) {
 		uploading = true;
@@ -30,13 +43,38 @@
 			downloadURL = await getDownloadURL(result.ref);
 
 			uploading = false;
+			diagnosing = true;
+
+			const formData = new FormData();
+			formData.append('file', file);
+
+			const url = APIURLS[category];
+
+			fetch(url, {
+				method: 'POST',
+				body: formData
+			})
+				.then((response) => {
+					diagnosing = false;
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
+				.then((data) => {
+					console.log(data);
+					aiDiagnosis = data.prediction;
+				})
+				.catch((error) => {
+					console.error('There was a problem with your fetch operation:', error);
+				});
 		}
 	}
 </script>
 
 <form class="w-full">
-	<h1 class="text-2xl font-medium">Upload Image</h1>
-	<img src={previewURL ?? '/user.png'} alt="photoURL" class="mx-auto mt-2 aspect-square h-56 w-56 rounded-xl border border-primary object-cover" />
+	<!-- <h1 class="text-2xl font-medium">Upload Image</h1> -->
+	<img src={previewURL ?? '/user.png'} alt="photoURL" class="mx-auto mt-2 aspect-square h-32 w-32 rounded-xl border border-primary object-cover" />
 
 	<!-- <Label for="photoURL">Choose a file</Label> -->
 
@@ -56,8 +94,15 @@
 	<!-- <Input on:change={upload} name="photoURL" type="file" accept="image/png, image/jpeg, image/gif, image/webp" class="w-auto flex justify-center items-center h-14 mx-auto"/> -->
 
 	{#if uploading}
-		<p>Uploading...</p>
-		<div class="mx-auto flex w-full justify-center"><img src={LoadingSVG} alt="spin" class="w-16" /></div>
+		<p class="text-sm">Uploading...</p>
+		<!-- <div class="mx-auto flex w-full justify-center"><img src={LoadingSVG} alt="spin" class="w-16" /></div> -->
 		<!-- <Progress value={33} /> -->
 	{/if}
+
+	{#if diagnosing}
+		<p class="text-sm">Diagnosing...</p>
+		<!-- <div class="mx-auto flex w-full justify-center"><img src={LoadingSVG} alt="spin" class="w-16" /></div> -->
+	{/if}
+
+	<p class="text-sm">AI Diagnosis: {aiDiagnosis ?? ''}</p>
 </form>

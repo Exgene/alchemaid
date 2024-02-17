@@ -1,83 +1,23 @@
-<main class="min-h-[100dvh] overflow-x-hidden">
-	<div class="top-64 hidden min-h-screen w-[100vw] items-center justify-center md:flex">
-		<div class="z-30 flex translate-y-[-10%] flex-col items-center md:flex-row-reverse">
-			<img src="/assets/centerGraphic.png" alt="Center Graphic" class=" brightness-90 md:scale-50 lg:scale-50" />
-			<div class="z-50 flex flex-col md:pl-6">
-				<div class="istok_web bg-gradient-to-r from-brand to-[#50c89a] to-[22%] bg-clip-text md:text-6xl lg:text-[5rem]">
-					<p class="text-transparent">Alchemaid</p>
-				</div>
+<script>
+	import { user, userData } from '$lib/firebase/firebase';
+	import * as Card from '$lib/components/ui/card';
+</script>
 
-				<div>
-					<p class=" text-xl">Platform to connect with your doctor!</p>
-					<div class="pt-4">
-						<a href="/doctors">
-							<button class="rounded-full bg-accent px-4 py-2 font-semibold duration-300 hover:scale-105">Doctors List</button>
-						</a>
-					</div>
-				</div>
+<main class="flex min-h-[100svh] w-full items-center justify-center py-10">
+	<div class="absolute bottom-0 flex h-[92svh] flex-col items-center justify-center">
+		<div class="flex h-[90%] w-11/12 flex-col justify-around rounded-3xl bg-gradient-to-br from-green-500 to-green-700 px-4 py-8 md:mx-0 md:w-full md:max-w-[90vw] md:flex-row md:px-16">
+			<img src="/assets/centerGraphic.png" alt="hero" />
+			<div class="flex flex-col items-center justify-center">
+				<h1 class="text-center text-[1.5rem] font-bold text-white md:text-[4rem]">Revolutionizing Healthcare</h1>
+				<div class="h-3"></div>
+				<span class="text-md bg-blur-2xl flex w-fit justify-center rounded-2xl bg-green-900 bg-opacity-30 px-4 py-2 text-center font-semibold text-white"> AI Foresees Diseases in Medical Scans </span>
+				<p class="text-md max-w-3xl pt-4 text-center text-white md:w-[32rem] md:pt-6">Upload X-rays, MRIs, CT Scans, and More. Let Our AI Predict Diseases for Informed Healthcare Decisions and Better Outcomes</p>
+				{#if $user && $userData}
+					<a class="mt-8 w-fit rounded-2xl bg-white px-6 py-2 text-xl font-semibold duration-300 hover:scale-110 md:px-12 md:py-4 md:text-3xl" href="/dashboard"> Try It Out! </a>
+				{:else}
+					<a class="mt-8 w-fit rounded-2xl bg-white px-6 py-2 text-xl font-semibold duration-300 hover:scale-110 md:px-12 md:py-4 md:text-3xl" href="/signup"> Try It Out! </a>
+				{/if}
 			</div>
 		</div>
 	</div>
-	<div class="absolute bottom-36 hidden w-full justify-center text-center sm:flex">
-		<p class="text-xl">Platform to connect with your doctor!<br /><span class="font-bold text-brand dark:text-primary">Made with love by Code Crunch</span></p>
-	</div>
-
-	<div class="absolute bottom-10 hidden w-full animate-bounce items-center justify-center bg-transparent md:flex">
-		<a href="/#about">
-			<svg width="50" height="50" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg" class="hidden dark:block">
-				<path d="M65.2726 18.5L69.375 22.1445L37 55.5L4.625 22.1445L8.72738 18.5L37 47.6283L65.2726 18.5Z" fill="white" />
-			</svg>
-			<svg width="50" height="50" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg" class="block dark:hidden">
-				<path d="M65.2726 18.5L69.375 22.1445L37 55.5L4.625 22.1445L8.72738 18.5L37 47.6283L65.2726 18.5Z" fill="black" />
-			</svg>
-		</a>
-	</div>
-
-	<div class="flex min-h-[100dvh] flex-grow flex-col md:hidden">
-		<div class="z-0 flex flex-col">
-			<div class="flex w-full translate-y-[-10%] flex-col items-center px-2">
-				<img src="/assets/centerGraphic.png" alt="Center Graphic" class="translate-y-[5dvh] scale-50 brightness-90 md:translate-y-[6dvh]" />
-				<div class="z-50 flex w-full flex-col items-center justify-center bg-gradient-to-r from-brand to-[#50c89a] to-[20%] bg-clip-text md:ml-16 md:py-10">
-					<div class="istok_web mt-10 pl-[5vw] text-left text-5xl sm:mt-4 sm:text-5xl">
-						<p class="text-transparent">Alchemaid</p>
-					</div>
-					<div>
-						<p class="pt-6 text-center text-lg">Platform to connect with your doctor!</p>
-						<div class="flex w-full justify-center pt-4">
-							<a href="/doctors">
-								<button class="rounded-full bg-accent px-4 py-2 font-semibold">Doctors List</button>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="flex w-full justify-center px-2">
-				<p class="text-center text-sm">Platform to connect with your doctor!<br /> <span class="font-bold">Made with love by Code Crunch</span></p>
-			</div>
-
-			<div class="mt-6 flex w-full animate-bounce justify-center">
-				<a href="/#about">
-					<svg width="30" height="30" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg" class="hidden dark:block">
-						<path d="M65.2726 18.5L69.375 22.1445L37 55.5L4.625 22.1445L8.72738 18.5L37 47.6283L65.2726 18.5Z" fill="white" />
-					</svg>
-					<svg width="30" height="30" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg" class="block dark:hidden">
-						<path d="M65.2726 18.5L69.375 22.1445L37 55.5L4.625 22.1445L8.72738 18.5L37 47.6283L65.2726 18.5Z" fill="black" />
-					</svg>
-				</a>
-			</div>
-		</div>
-	</div>
-
-	<!-- <section id="about" class="flex max-w-[100vw] py-10">
-		<AboutSection />
-	</section> -->
 </main>
-
-<style>
-	@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@700&display=swap');
-	.istok_web {
-		font-family: 'Istok Web', sans-serif;
-		font-weight: 700;
-	}
-</style>

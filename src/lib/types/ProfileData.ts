@@ -46,6 +46,7 @@ interface MutableData {
 export type ProfileData = ImmutableData & DynamicFields<ImmutableData> & MutableData;
 
 interface Report {
+	uploadTime: Timestamp;
 	title: string;
 	id: string;
 	description?: string;

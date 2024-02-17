@@ -38,9 +38,9 @@
 				<a href="/{$userData.username}/edit" class="contents"><Button class="border bg-transparent text-primary" variant={'secondary'}>Edit Profile</Button></a>
 				<Button on:click={signOutSSR}>Sign out</Button>
 				{#if $userData?.isDoctor === true}
-					<a href="/doctorprofile" class="contents"><Button class="border bg-transparent text-primary" variant={'secondary'}>Doctor Profile</Button></a>
+					<a href="/dashboard" class="contents"><Button class="border bg-transparent text-primary" variant={'secondary'}>Doctor Profile</Button></a>
 				{:else}
-					<a href="/doctorprofile" class="contents"><Button class="border bg-transparent text-primary" variant={'secondary'}>Are you a doctor? Join Us</Button></a>
+					<a href="/dashboard" class="contents"><Button class="border bg-transparent text-primary" variant={'secondary'} on:click={()=> $userData ? $userData.isDoctor = true: ''}>Are you a doctor? Join Us</Button></a>
 				{/if}
 			</div>
 		</Popover.Content>

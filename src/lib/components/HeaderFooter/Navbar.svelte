@@ -2,6 +2,7 @@
 	import AuthButton from '$lib/components/Auth/AuthButton.svelte';
 	import ThemeToggle from '$lib/components/HeaderFooter/ThemeToggle.svelte';
 	import { NAVITEM } from '$lib/data/NavbarItems';
+	import { user, userData } from '$lib/firebase/firebase';
 
 	let y = 0;
 	let sidebar = false;
@@ -17,11 +18,17 @@
 	<div class="fixed top-0 z-50 hidden w-full md:grid">
 		<div class={`md: flex items-center justify-center px-6 py-2 md:px-10 md:py-6 ${y > 0 ? 'backdrop-blur-xl' : ''} transition-all duration-150 ease-out`}>
 			<div class="absolute left-6 flex items-center gap-x-2">
-				<a href="/"><img src="/assets/logo.png" alt="Alchemaid logo" class="w-20 brightness-125 contrast-125" /></a>
+				<a href="/">
+					<img src="/assets/logo.png" alt="Alchemaid logo" class="w-20 brightness-125 contrast-125" />
+				</a>
 			</div>
 			<ul class="flex flex-wrap items-center space-x-6 md:text-lg">
 				{#each NAVITEM as nav}
-					<div class="hover:dark:custom-drop-shadow-white hover:scale-110"><a href={`${nav.href}`} class="scroll-smooth">{nav.title}</a></div>
+					{#if nav.title === 'Dashboard' && (!$user || !$userData)}
+						<div></div>
+					{:else}
+						<div class="hover:dark:custom-drop-shadow-white hover:scale-110"><a href={`${nav.href}`} class="scroll-smooth">{nav.title}</a></div>
+					{/if}
 				{/each}
 			</ul>
 			<div class="absolute right-10 flex w-28 justify-center gap-2">
@@ -34,10 +41,11 @@
 	<!-- Mobile Navbar -->
 	<!-- ${y > 0 ? 'backdrop-blur-xl' : ''} -->
 	<div class={`fixed z-50 flex w-full pb-2 pt-4  ${y > 0 ? 'backdrop-blur-xl' : ''} transition-all duration-150 ease-out md:hidden`}>
-		<div class="flex">
-			<div>
-				<a href="/"><img src="/assets/logo.png" alt="Alchemaid logo" class="w-12 brightness-125 contrast-125 sm:w-20" /></a>
-			</div>
+		<div>
+			<a href="/" class="flex items-center"
+				><img src="/assets/logo.png" alt="Alchemaid logo" class="w-12" />
+				<h1 class="text-xl font-bold text-green-900">Alchemaid</h1></a
+			>
 		</div>
 		<div class="absolute right-8 flex w-28 justify-center gap-2">
 			<AuthButton />

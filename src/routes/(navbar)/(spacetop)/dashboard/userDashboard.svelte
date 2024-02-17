@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import 'iconify-icon';
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
@@ -11,18 +11,30 @@
 	import UploadPhoto from './uploadPhoto.svelte';
 
 	import { db, userID, userPrivateData } from '$lib/firebase/firebase';
-	import { arrayUnion, doc, writeBatch } from 'firebase/firestore';
+	import { Timestamp, arrayUnion, doc, writeBatch } from 'firebase/firestore';
 	import { goto } from '$app/navigation';
 
 	const categories = [
-		{ value: 'xray', label: 'Pneumonia X-ray' },
-		{ value: 'mri', label: 'Brain MRI Scan' },
-		{ value: 'ct', label: 'Eye CT Scan' },
-		{ value: 'skin', label: 'Skin Disease Scan' },
-		{ value: 'form', label: 'Others' }
+		{ value: 'chest-xray', label: 'Pneumonia X-ray' },
+		{ value: 'brain-mri', label: 'Brain MRI Scan' },
+		{ value: 'eye-ct', label: 'Eye CT Scan' },
+		{ value: 'skin-disease', label: 'Skin Disease Scan' },
+		{ value: 'report', label: 'Others' }
 	];
 
-	let newScan = {
+	interface Report {
+		title: string;
+		id: string;
+		description: string;
+		image: string;
+		category: string;
+		aiDiagnosis: string;
+		doctorDiagnosis: string;
+		remarks: string;
+		uploadTime?: Date;
+	}
+
+	let newScan: Report = {
 		title: '',
 		id: '',
 		description: '',
@@ -34,14 +46,12 @@
 	};
 
 	async function uploadScan() {
-		alert('Uploading scan');
 		const batch = writeBatch(db);
 
 		if ($userID === null) return;
-		batch.update(doc(db, 'private', $userID.user), { reports: arrayUnion(newScan) });
+		batch.update(doc(db, 'private', $userID.user), { reports: arrayUnion({ ...newScan, uploadTime: Timestamp.now() }) });
 
 		await batch.commit();
-		alert('finished upload scan');
 	}
 </script>
 
@@ -55,22 +65,23 @@
 			</div>
 
 			<!-- List of Reports -->
-			<div class="mt-4 overflow-auto rounded-md border-2 border-gray-200 bg-gray-100 p-2 shadow-inner">
+			<div class="mt-4 gap-x-3 overflow-auto rounded-md border-2 border-gray-200 bg-gray-100 p-2 shadow-inner dark:border-black dark:bg-gray-800 lg:grid lg:grid-cols-2">
 				<!-- {JSON.stringify($userPrivateData)} -->
 				{#each $userPrivateData?.reports ?? [] as report}
 					<a href={`dashboard/${report.title}`}>
 						<Card.Root class="mb-2">
 							<Card.Header>
-								<Card.Title>Scan Type</Card.Title>
-								<Card.Description>11:11 AM, 11/11/1111</Card.Description>
+								<Card.Title>{report.title}</Card.Title>
+								<Card.Description>Type of Report: {report.category}</Card.Description>
+								<!-- <Card.Description>Date Uploaded: {report.uploadTime}</Card.Description> -->
 							</Card.Header>
 						</Card.Root>
 					</a>
 				{/each}
 
-				<!-- text with plus button -->
+				<!-- Button to add a new scan -->
 				<Dialog.Trigger>
-					<div class="flex h-max flex-col items-center justify-center p-[8vw] py-16 text-center text-gray-400">
+					<div class="flex h-max w-full flex-col items-center justify-center bg-gray-200 p-16 text-center text-gray-400 dark:bg-gray-700">
 						<p>Click here or press the 'Scan' button to upload image for AI report</p>
 						<div class="h-4"></div>
 						<iconify-icon icon="icons8:plus" height="48px" class="opacity-70"></iconify-icon>
@@ -79,28 +90,16 @@
 						<Dialog.Content class="w-[95%] sm:max-w-[425px]">
 							<Dialog.Header>
 								<Dialog.Title>Upload to Scan</Dialog.Title>
-								<Dialog.Description>Upload your image here. Alchemaid AI will prepare the report for you.</Dialog.Description>
+								<Dialog.Description>Upload your report here. Alchemaid AI will analyse the report for you.</Dialog.Description>
 							</Dialog.Header>
 
-							<div class="flex w-full max-w-sm flex-col gap-1.5">
-								<Label for="title">Title</Label>
-								<Input type="text" id="title" placeholder="Title" bind:value={newScan.title} />
-							</div>
-
-							<div class="flex w-full max-w-sm flex-col gap-1.5">
-								<Label for="id">ID</Label>
-								<Input type="text" id="id" placeholder="ID" bind:value={newScan.id} title={newScan.title} bind:aiDiagnosis={newScan.aiDiagnosis} />
-							</div>
-
-							<UploadPhoto bind:downloadURL={newScan.image} />
-
-							<!-- Categories for selection of type of scan -->
+							<!-- Category -->
 							<Select.Root
 								onSelectedChange={(item) => {
 									newScan.category = item?.value;
 								}}
 							>
-								<Select.Trigger class="m-[5px] w-[97%]">
+								<Select.Trigger class="w-full max-w-sm">
 									<Select.Value placeholder="Select a category" />
 								</Select.Trigger>
 								<Select.Content>
@@ -113,8 +112,27 @@
 								<Select.Input name="chosenCategory" />
 							</Select.Root>
 
+							<!-- Title -->
+							<div class="flex w-full max-w-sm flex-col gap-1.5">
+								<!-- <Label for="title">Title</Label> -->
+								<Input type="text" id="title" placeholder="Title" bind:value={newScan.title} />
+							</div>
+
+							<!-- ID -->
+							<div class="flex w-full max-w-sm flex-col gap-1.5">
+								<!-- <Label for="id">ID</Label> -->
+								<Input type="text" id="id" placeholder="ID" bind:value={newScan.id} />
+							</div>
+
+							<!-- Image -->
+							<div class="flex w-full max-w-sm flex-col gap-1.5">
+								<Label for="image">Upload image/photo</Label>
+								<!-- <input type="file" accept="image/*" placeholder="Capture Image" capture /> -->
+								<UploadPhoto bind:downloadURL={newScan.image} title={newScan.title} category={newScan.category} bind:aiDiagnosis={newScan.aiDiagnosis} />
+							</div>
+
 							<Dialog.Footer>
-								<Button on:click={uploadScan}>Upload</Button>
+								<Button on:click={uploadScan}>Upload Report to Database</Button>
 							</Dialog.Footer>
 						</Dialog.Content>
 					</div>
@@ -131,7 +149,7 @@
 
 		<!-- Condition that checks if the user has an appointed Doctor already -->
 		<!-- if yes -->
-		<Card.Root class="my-2">
+		<!-- <Card.Root class="my-2">
 			<Card.Header class="flex flex-row items-center gap-2">
 				<Avatar.Root>
 					<Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -142,10 +160,10 @@
 					<Card.Description>Speciality & Description</Card.Description>
 				</div>
 			</Card.Header>
-		</Card.Root>
+		</Card.Root> -->
 		<!-- else just show appoint new doctor button -->
 		<div class="flex flex-col items-center">
-			<Button class="text-md w-full bg-teal-600 bg-opacity-75 px-6 py-4">Appoint New Doctor</Button>
+			<a href="dashboard/doctors"><Button class="text-md w-full bg-teal-600 bg-opacity-75 px-6 py-4">Appoint New Doctor</Button></a>
 		</div>
 	</div>
 
