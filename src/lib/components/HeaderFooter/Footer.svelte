@@ -15,7 +15,7 @@
 	</div>
 
 	<ul class={'flex space-x-8 text-black dark:text-white'}>
-		<a href={'https://github.com/codcrunch/innerve8'} target={'_blank'} class="duration-200 hover:scale-110">
+		<a href={'https://github.com/codcrunch'} target={'_blank'} class="duration-200 hover:scale-110">
 			<iconify-icon icon="mdi:github" height="2rem" />
 		</a>
 	</ul>
@@ -30,7 +30,7 @@
 		{/each}
 	</ul>
 
-	<a href="https://github.com/codcrunch" target="_blank"><span class="md:text-md text-sm">Innerve 8.0 (Army Institute of Technology)</span></a>
+	<a href="https://github.com/codcrunch" target="_blank"><span class="md:text-md text-sm">Hackbells 2.0 - Sree Buddha College of Engineering</span></a>
 
 	<div>
 		<h1 class="pt-3 text-xl">© CODE CRUNCH 2024</h1>
