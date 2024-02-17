@@ -7,6 +7,7 @@
 </script>
 
 <div class="row-span-1 grid h-[90svh] grid-rows-1 p-4">
+
 	<!-- Patients Part -->
 	<div class="flex w-full flex-col rounded-sm p-1">
 		<div class="flex items-end justify-between px-1">
@@ -33,12 +34,12 @@
 		</div>
 	</div>
 
-	<!-- AI Scan -->
-	<div class="mb-12 mt-8 w-full self-end rounded-sm p-1">
-		<h1 class="text-xl font-semibold">Try our AI for medical scan interpretation :</h1>
-		<Button class="text-md mt-2 w-full bg-green-600 bg-opacity-75 px-6 py-4">Scan</Button>
-	</div>
+    <!-- AI Scan -->
+    <div class="mb-12 mt-8 w-full self-end rounded-sm p-1">
+        <h1 class="text-xl font-semibold">Try our AI for medical scan interpretation :</h1>
+        <Button class="text-md mt-2 w-full bg-green-600 bg-opacity-75 px-6 py-4">Scan</Button>
+    </div>
 
-	<!-- Chat Bubble -->
-	<ChatBubble />
+    <!-- Chat Bubble -->
+    <ChatBubble />
 </div>

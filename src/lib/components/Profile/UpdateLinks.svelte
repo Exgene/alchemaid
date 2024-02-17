@@ -81,7 +81,7 @@
 
 <div class="grid-item flex flex-col border">
 	<h1 class="text-2xl font-medium">Update your social links</h1>
-	<p class="mt-1 text-base text-muted">Drag and drop to reorder your links</p>
+	<p class="text-base text-muted mt-1">Drag and drop to reorder your links</p>
 	<Dialog.Root>
 		{#if $userProfileData?.links?.length !== 8}
 			<Dialog.Trigger class="{buttonVariants({ variant: 'secondary' })} m-2 w-1/3 min-w-fit self-center rounded-full border border-primary bg-transparent">Add Links</Dialog.Trigger>

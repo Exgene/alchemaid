@@ -4,6 +4,10 @@ export const NAVITEM = [
 		href: '/'
 	},
 	{
+		title: 'Doctor',
+		href: '/doctor'
+	},
+	{
 		title: 'Dashboard',
 		href: '/dashboard'
 	},

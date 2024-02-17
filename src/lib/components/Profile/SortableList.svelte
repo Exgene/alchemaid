@@ -56,9 +56,9 @@
 	};
 </script>
 
-<div class="flex items-center justify-center">
+<div class="flex justify-center items-center">
 	{#if list?.length}
-		<ul class={`flex list-none flex-wrap items-center justify-center p-0`}>
+		<ul class={`list-none items-center p-0 flex flex-wrap justify-center`}>
 			{#each list as item, index (item.id)}
 				<li class="rounded-xl border-2 border-dashed border-transparent p-2 transition-all" class:over={item.id === isOver} data-index={index} data-id={item.id} draggable="true" on:dragstart={onDragStart} on:dragover|preventDefault={onDragOver} on:dragleave={onDragLeave} on:drop|preventDefault={onDrop} animate:flip={{ duration: 300 }}>
 					<slot {item} {index} />
@@ -66,7 +66,7 @@
 			{/each}
 		</ul>
 	{:else}
-		<p class="m-2 w-full rounded-md border-2 p-4">You don't have any links</p>
+		<p class="m-2 w-full border-2 rounded-md p-4">You don't have any links</p>
 	{/if}
 </div>
 
