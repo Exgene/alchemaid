@@ -53,6 +53,16 @@
 
 		await batch.commit();
 	}
+
+	async function deleteEntry(i: number) {
+		const batch = writeBatch(db);
+
+		if ($userID === null) return;
+		if (!$userPrivateData?.reports) return;
+		batch.update(doc(db, 'private', $userID.user), { reports: [...$userPrivateData?.reports.slice(0, i), ...$userPrivateData?.reports.slice(i + 1, $userPrivateData?.reports.length)] });
+
+		await batch.commit();
+	}
 </script>
 
 <div class="row-span-1 grid h-[90vh] grid-rows-1 p-4">
@@ -67,16 +77,20 @@
 			<!-- List of Reports -->
 			<div class="mt-4 gap-x-3 overflow-auto rounded-md border-2 border-gray-200 bg-gray-100 p-2 shadow-inner dark:border-black dark:bg-gray-800 lg:grid lg:grid-cols-2">
 				<!-- {JSON.stringify($userPrivateData)} -->
-				{#each $userPrivateData?.reports ?? [] as report}
-					<a href={`dashboard/${report.title}`}>
-						<Card.Root class="mb-2">
-							<Card.Header>
-								<Card.Title>{report.title}</Card.Title>
-								<Card.Description>Type of Report: {report.category}</Card.Description>
-								<!-- <Card.Description>Date Uploaded: {report.uploadTime}</Card.Description> -->
-							</Card.Header>
-						</Card.Root>
-					</a>
+				{#each $userPrivateData?.reports ?? [] as report, i}
+					<div class=" flex">
+						<a href={`dashboard/${report.title}`} class="mr-1 flex w-full">
+							<Card.Root class="mb-2 w-full">
+								<Card.Header>
+									<Card.Title>{report.title}</Card.Title>
+									<Card.Description>Type of Report: {report.category}</Card.Description>
+									<!-- <Card.Description>Date Uploaded: {report.uploadTime}</Card.Description> -->
+								</Card.Header>
+							</Card.Root>
+						</a>
+						<Button on:click={() => deleteEntry(i)} class="hidden w-20 md:block">Delete</Button>
+						<Button on:click={() => deleteEntry(i)} class="h-full w-5 md:hidden">x</Button>
+					</div>
 				{/each}
 
 				<!-- Button to add a new scan -->
