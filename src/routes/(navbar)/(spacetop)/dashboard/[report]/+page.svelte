@@ -1,45 +1,38 @@
 <script lang="ts">
 	import { userPrivateData } from '$lib/firebase/firebase';
 	import { page } from '$app/stores';
-
+  
 	const isTitleInArray = (title: string, array: any[]) => array.some((obj) => obj.title === title);
-</script>
-
-{#if isTitleInArray($page.params.report, $userPrivateData?.reports ?? [])}
+  </script>
+  
+  {#if isTitleInArray($page.params.report, $userPrivateData?.reports ?? [])}
 	{#each $userPrivateData?.reports ?? [] as report}
-		{#if report.title === $page.params.report}
-			<!-- {JSON.stringify(report)} -->
-
-			<div class="flex h-[92vh] items-center justify-center">
-				<div class="div-4 bg-gree-50 m-2 flex h-[90%] w-full flex-col items-center rounded-md border-2 border-green-700 drop-shadow-lg">
-					<h1 class="text-2xl font-semibold underline">Report</h1>
-
-					<div class="h-4"></div>
-
-					<div class="flex w-full flex-col text-xl font-medium">
-						<div class="flex gap-2">
-							<div>Title :</div>
-							<div>{report.title}</div>
-						</div>
-						<div class="flex gap-2">
-							<div>Category :</div>
-							<div>{report.category}</div>
-						</div>
-						<div class="flex gap-2">
-							<div>Date Uploaded :</div>
-							<div>{report.uploadTime}</div>
-						</div>
-						<div class="flex gap-2">
-							<div>Uploaded Image :</div>
-							<img src={report.photoURL} alt="uploaded" />
-						</div>
-						<div class="flex gap-2">
-							<div>AI Diagnosis :</div>
-							<div>{report.aiDiagnosis}</div>
-						</div>
-					</div>
-				</div>
+	  {#if report.title === $page.params.report}
+	  <div class="w-full h-[89dvh] p-6 flex items-center justify-center">
+		<div class="flex flex-col h-2/3 w-[90%] lg:w-fit lg:h-fit ms-center justify-center items-center bg-green-50 p-4 rounded-lg border border-green-700 shadow-md">
+			<h1 class="text-2xl font-bold mb-4">Report</h1>
+  
+			<div class="flex flex-col gap-4">
+			  <div class="flex-grow font-medium">Title: {report.title}</div>
+  
+			  <div class="flex-grow font-medium">Category: {report.category}</div>
+  
+			  <div class="flex-grow font-medium">Date Uploaded: {report.uploadTime.toDate().toDateString()}</div>
+  
+			  <div class="flex-grow font-medium">Uploaded Image: 
+				{#if !report.image}
+				No Image Uploded
+				{:else}
+				<img src={report.image} alt="Uploaded Image" class="w-48 h-48 rounded-md" />
+				{/if}
+			  </div>
+  
+			  <div class="flex-grow font-medium">AI Diagnosis:</div>
+			  <div>{report.aiDiagnosis}</div>
 			</div>
-		{/if}
+		  </div>
+		</div>
+	  {/if}
 	{/each}
-{/if}
+  {/if}
+  

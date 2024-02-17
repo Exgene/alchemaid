@@ -104,5 +104,5 @@
 		<!-- <div class="mx-auto flex w-full justify-center"><img src={LoadingSVG} alt="spin" class="w-16" /></div> -->
 	{/if}
 
-	<p class="mt-4 text-sm bg-gray-100 shadow-sm shadow-gray-300 p-4 rounded-md font-medium">AI Diagnosis:</p> <h1 class="font-black">{aiDiagnosis ?? ''}</h1>
+	<div class="mt-4 text-sm bg-gray-100 shadow-sm shadow-gray-300 p-4 rounded-md font-medium">AI Diagnosis:<h1 class="font-black">{aiDiagnosis ?? ''}</h1></div> 
 </form>
