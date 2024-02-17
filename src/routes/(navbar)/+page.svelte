@@ -4,7 +4,8 @@
 </script>
 
 <main class="flex min-h-[100svh] w-full items-center justify-center py-10">
-	<img src="assets/homepage.jpeg" alt="Landing Page" />
+	<img src="assets/homepage.jpeg" alt="Landing Page" class="hidden md:block" />
+	<img src="assets/homepageMobile.jpeg" alt="Landing Page" class="mt-[5vh] md:hidden" />
 	<!-- <div class="absolute bottom-0 flex h-[92svh] flex-col items-center justify-center">
 		<div class="flex h-[90%] w-11/12 flex-col justify-around rounded-3xl bg-gradient-to-br from-green-500 to-green-700 px-4 py-8 md:mx-0 md:w-full md:max-w-[90vw] md:flex-row md:px-16">
 			<img src="/assets/centerGraphic.png" alt="hero" />
