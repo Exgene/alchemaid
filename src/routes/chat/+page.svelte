@@ -46,12 +46,12 @@
 	<Chat {data} />
 </main>
 
-<div class="fixed inset-x-0 bottom-0 bg-secondary p-4 text-primary">
+<form on:submit={handleSubmit} class="fixed inset-x-0 bottom-0 bg-secondary p-4 text-primary">
 	<div class="flex w-full items-center space-x-2">
 		<input type="text" bind:value={text} placeholder="Type your message..." class="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 focus:border-blue-500 focus:outline-none dark:bg-gray-600" />
 		<Button on:click={handleSubmit}>Enter</Button>
 	</div>
-</div>
+</form>
 
 <style>
 	main {
