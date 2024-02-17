@@ -65,9 +65,9 @@
 	}
 </script>
 
-<div class="row-span-1 grid h-[90vh] grid-rows-1 p-4">
+<div class="row-span-1 flex flex-col h-fit p-4 w-full items-center">
 	<!-- Reports Part -->
-	<div class="flex w-full flex-col rounded-sm p-1">
+	<div class="flex md:w-1/2 flex-col rounded-sm p-1">
 		<Dialog.Root>
 			<div class="flex items-end justify-between px-1">
 				<h1 class="text-xl font-semibold">Your Reports</h1>
@@ -75,10 +75,10 @@
 			</div>
 
 			<!-- List of Reports -->
-			<div class="mt-4 gap-x-3 overflow-auto rounded-md border-2 border-gray-200 bg-gray-100 p-2 shadow-inner dark:border-black dark:bg-gray-800 lg:grid lg:grid-cols-2">
+			<div class="mt-4 gap-x-3 overflow-auto rounded-md border-2 border-gray-200 bg-gray-100 p-2 shadow-inner dark:border-black dark:bg-gray-800">
 				<!-- {JSON.stringify($userPrivateData)} -->
 				{#each $userPrivateData?.reports ?? [] as report, i}
-					<div class=" flex">
+					<div class=" flex items-center">
 						<a href={`dashboard/${report.title}`} class="mr-1 flex w-full">
 							<Card.Root class="mb-2 w-full">
 								<Card.Header>
@@ -94,7 +94,7 @@
 				{/each}
 
 				<!-- Button to add a new scan -->
-				<Dialog.Trigger>
+				<Dialog.Trigger class='w-full'>
 					<div class="flex h-max w-full flex-col items-center justify-center bg-gray-200 p-16 text-center text-gray-400 dark:bg-gray-700">
 						<p>Click here or press the 'Scan' button to upload image for AI report</p>
 						<div class="h-4"></div>
@@ -154,12 +154,15 @@
 			</div>
 		</Dialog.Root>
 	</div>
-
+	
+	
+	<hr class="mt-8 w-full">
 	<!-- Your Doctor Part -->
 	<div class="mb-12 mt-4 w-full self-end rounded-sm p-1">
-		<div class="flex items-center justify-between px-1">
-			<h1 class="text-xl font-semibold">Your Doctor</h1>
+		<div class="flex items-center justify-center px-1">
+			<h1 class="text-xl font-semibold text">Your Doctor</h1>
 		</div>
+		<div class="h-4"></div>
 
 		<!-- Condition that checks if the user has an appointed Doctor already -->
 		<!-- if yes -->
