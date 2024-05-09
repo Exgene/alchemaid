@@ -24,11 +24,11 @@
 			</div>
 			<ul class="flex flex-wrap items-center space-x-6 md:text-lg">
 				{#each NAVITEM as nav}
-					{#if nav.title === 'Dashboard' && (!$user || !$userData)}
+					<!-- {#if nav.title === 'Dashboard' && (!$user || !$userData)}
 						<div></div>
-					{:else}
-						<div class="hover:dark:custom-drop-shadow-white hover:scale-110"><a href={`${nav.href}`} class="scroll-smooth">{nav.title}</a></div>
-					{/if}
+					{:else} -->
+					<div class="hover:dark:custom-drop-shadow-white hover:scale-110"><a href={`${nav.href}`} class="scroll-smooth">{nav.title}</a></div>
+					<!-- {/if} -->
 				{/each}
 			</ul>
 			<div class="absolute right-10 flex w-28 justify-center gap-2">
