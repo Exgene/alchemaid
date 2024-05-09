@@ -20,6 +20,15 @@ const firebaseConfig = {
 	appId: '1:1040144852257:web:65af1a0b4e1c04d2820a60'
 };
 
+// const firebaseConfig = {
+// 	apiKey: 'AIzaSyDqxP3xUwxlDdAC2TeiiWfbcfWcVBnuq-o',
+// 	authDomain: 'alchemaid-8daff.firebaseapp.com',
+// 	projectId: 'alchemaid-8daff',
+// 	storageBucket: 'alchemaid-8daff.appspot.com',
+// 	messagingSenderId: '478400297646',
+// 	appId: '1:478400297646:web:3ebe418d8c97a08eb40b3f'
+// };
+
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 let app: FirebaseApp;

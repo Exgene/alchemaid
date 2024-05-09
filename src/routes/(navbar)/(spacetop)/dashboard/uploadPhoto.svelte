@@ -1,19 +1,19 @@
 <script lang="ts">
 	import { failure, success } from '$lib/components/Toast/toast';
+	import { Input } from '$lib/components/ui/input';
 	import { db, storage, userID, userProfileData } from '$lib/firebase/firebase';
 	import LoadingSVG from '$lib/loader/rolling.svg';
 	import { cn } from '$lib/utils';
 	import { doc, updateDoc } from 'firebase/firestore';
 	import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-	import { Input } from '$lib/components/ui/input';
 
 	type MedicalCategories = 'chest-xray' | 'brain-mri' | 'eye-ct' | 'skin-disease' | 'report';
 
 	let APIURLS = {
-		'chest-xray': 'https://pneumonia-fmaprfvioa-de.a.run.app',
-		'brain-mri': 'https://braintumor-fmaprfvioa-de.a.run.app',
-		'eye-ct': 'https://diabeticretinopathy-fmaprfvioa-de.a.run.app',
-		'skin-disease': 'https://skindisease-fmaprfvioa-de.a.run.app',
+		'chest-xray': 'https://pneumonia-jmtugz6wea-el.a.run.app',
+		'brain-mri': 'https://brain-tumor-jmtugz6wea-el.a.run.app',
+		'eye-ct': 'https://diabetic-model-jmtugz6wea-el.a.run.app',
+		'skin-disease': 'https://skin-disease-jmtugz6wea-el.a.run.app',
 		report: 'https://report-fmaprfvioa-de.a.run.app'
 	};
 
@@ -37,10 +37,10 @@
 			return;
 		} else {
 			previewURL = URL.createObjectURL(file);
-			const storageRef = ref(storage, `reports/${$userID!.user}/${title}.png`);
-			const result = await uploadBytes(storageRef, file);
+			// const storageRef = ref(storage, `reports/${$userID!.user}/${title}.png`);
+			// const result = await uploadBytes(storageRef, file);
 
-			downloadURL = await getDownloadURL(result.ref);
+			// downloadURL = await getDownloadURL(result.ref);
 
 			uploading = false;
 			diagnosing = true;
@@ -104,5 +104,8 @@
 		<!-- <div class="mx-auto flex w-full justify-center"><img src={LoadingSVG} alt="spin" class="w-16" /></div> -->
 	{/if}
 
-	<div class="mt-4 text-sm bg-gray-100 shadow-sm shadow-gray-300 p-4 rounded-md font-medium">AI Diagnosis:<h1 class="font-black">{aiDiagnosis ?? ''}</h1></div> 
+	<div class="mt-4 rounded-md bg-gray-100 p-4 text-sm font-medium shadow-sm shadow-gray-300">
+		AI Diagnosis:
+		<h1 class="font-black">{aiDiagnosis ?? ''}</h1>
+	</div>
 </form>
