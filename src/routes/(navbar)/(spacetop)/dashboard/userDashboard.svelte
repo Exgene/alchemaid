@@ -1,24 +1,23 @@
 <script lang="ts">
-	import 'iconify-icon';
-	import * as Card from '$lib/components/ui/card';
+	import ChatBubble from '$lib/components/elements/ChatBubble.svelte';
+	import * as Avatar from '$lib/components/ui/avatar';
 	import { Button } from '$lib/components/ui/button';
+	import * as Card from '$lib/components/ui/card';
+	import * as Dialog from '$lib/components/ui/dialog';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Select from '$lib/components/ui/select';
-	import * as Avatar from '$lib/components/ui/avatar';
-	import ChatBubble from '$lib/components/elements/ChatBubble.svelte';
+	import 'iconify-icon';
 	import UploadPhoto from './uploadPhoto.svelte';
 
+	import { goto } from '$app/navigation';
 	import { db, userID, userPrivateData } from '$lib/firebase/firebase';
 	import { Timestamp, arrayUnion, doc, writeBatch } from 'firebase/firestore';
-	import { goto } from '$app/navigation';
 
 	const categories = [
 		{ value: 'chest-xray', label: 'Pneumonia X-ray' },
 		{ value: 'brain-mri', label: 'Brain MRI Scan' },
 		{ value: 'eye-ct', label: 'Eye CT Scan' },
-		{ value: 'skin-disease', label: 'Skin Disease Scan' },
 		{ value: 'report', label: 'Others' }
 	];
 
@@ -65,9 +64,9 @@
 	}
 </script>
 
-<div class="row-span-1 flex flex-col h-fit p-4 w-full items-center">
+<div class="row-span-1 flex h-fit w-full flex-col items-center p-4">
 	<!-- Reports Part -->
-	<div class="flex md:w-1/2 flex-col rounded-sm p-1">
+	<div class="flex flex-col rounded-sm p-1 md:w-1/2">
 		<Dialog.Root>
 			<div class="flex items-end justify-between px-1">
 				<h1 class="text-xl font-semibold">Your Reports</h1>
@@ -94,7 +93,7 @@
 				{/each}
 
 				<!-- Button to add a new scan -->
-				<Dialog.Trigger class='w-full'>
+				<Dialog.Trigger class="w-full">
 					<div class="flex h-max w-full flex-col items-center justify-center bg-gray-200 p-16 text-center text-gray-400 dark:bg-gray-700">
 						<p>Click here or press the 'Scan' button to upload image for AI report</p>
 						<div class="h-4"></div>
@@ -154,13 +153,12 @@
 			</div>
 		</Dialog.Root>
 	</div>
-	
-	
-	<hr class="mt-8 w-full">
+
+	<hr class="mt-8 w-full" />
 	<!-- Your Doctor Part -->
 	<div class="mb-12 mt-4 w-full self-end rounded-sm p-1">
 		<div class="flex items-center justify-center px-1">
-			<h1 class="text-xl font-semibold text">Your Doctor</h1>
+			<h1 class="text text-xl font-semibold">Your Doctor</h1>
 		</div>
 		<div class="h-4"></div>
 
