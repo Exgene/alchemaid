@@ -37,10 +37,10 @@
 			return;
 		} else {
 			previewURL = URL.createObjectURL(file);
-			// const storageRef = ref(storage, `reports/${$userID!.user}/${title}.png`);
-			// const result = await uploadBytes(storageRef, file);
+			const storageRef = ref(storage, `reports/${$userID!.user}/${title}.png`);
+			const result = await uploadBytes(storageRef, file);
 
-			// downloadURL = await getDownloadURL(result.ref);
+			downloadURL = await getDownloadURL(result.ref);
 
 			uploading = false;
 			diagnosing = true;

@@ -11,23 +11,23 @@ import { derived, get, writable, type Readable, type Writable } from 'svelte/sto
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
-const firebaseConfig = {
-	apiKey: 'AIzaSyAkgDOE85qNnA7qVY4-Pcp_yL_aRSgmqsM',
-	authDomain: 'alchemaid.firebaseapp.com',
-	projectId: 'alchemaid',
-	storageBucket: 'alchemaid.appspot.com',
-	messagingSenderId: '1040144852257',
-	appId: '1:1040144852257:web:65af1a0b4e1c04d2820a60'
-};
-
 // const firebaseConfig = {
-// 	apiKey: 'AIzaSyDqxP3xUwxlDdAC2TeiiWfbcfWcVBnuq-o',
-// 	authDomain: 'alchemaid-8daff.firebaseapp.com',
-// 	projectId: 'alchemaid-8daff',
-// 	storageBucket: 'alchemaid-8daff.appspot.com',
-// 	messagingSenderId: '478400297646',
-// 	appId: '1:478400297646:web:3ebe418d8c97a08eb40b3f'
+// 	apiKey: 'AIzaSyAkgDOE85qNnA7qVY4-Pcp_yL_aRSgmqsM',
+// 	authDomain: 'alchemaid.firebaseapp.com',
+// 	projectId: 'alchemaid',
+// 	storageBucket: 'alchemaid.appspot.com',
+// 	messagingSenderId: '1040144852257',
+// 	appId: '1:1040144852257:web:65af1a0b4e1c04d2820a60'
 // };
+
+const firebaseConfig = {
+	apiKey: 'AIzaSyDqxP3xUwxlDdAC2TeiiWfbcfWcVBnuq-o',
+	authDomain: 'alchemaid-8daff.firebaseapp.com',
+	projectId: 'alchemaid-8daff',
+	storageBucket: 'alchemaid-8daff.appspot.com',
+	messagingSenderId: '478400297646',
+	appId: '1:478400297646:web:3ebe418d8c97a08eb40b3f'
+};
 
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
